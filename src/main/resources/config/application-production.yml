@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: production
+  datasource:
+    driver-class-name: "org.postgresql.Driver"
+    url: "jdbc:postgresql://postgresql-master:5432/manifoldcf"
+
+security:
+  basic:
+    enabled: false
+
+spring.data.solr.zk-host: zoo-keeper1:12181,zoo-keeper2:22181,zoo-keeper3:32181
