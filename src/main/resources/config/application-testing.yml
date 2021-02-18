@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: testing
+
+security:
+  basic:
+    enabled: false
+
+spring.data.solr.zk-host: localhost:12181,localhost:22181,localhost:32181

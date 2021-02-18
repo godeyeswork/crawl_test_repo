@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd">
+    <!-- デフォルト設定読み込み -->
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <property name="APP_LOG_FILE" value="/var/log/ws/application"/>
+    <property name="ERR_LOG_FILE" value="/var/log/ws/error"/>
+
+    <!--出力ルール上書き -->
+    <appender name="applicationLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${APP_LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${APP_LOG_FILE}_%d{yyyyMMdd}.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${ERR_LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${ERR_LOG_FILE}_%i.gz</fileNamePattern>
+            <maxIndex>20</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!--設定開発用 -->
+    <springProfile name="development">
+        <root level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="jp.co.nsw" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE" />
+        </logger>
+    </springProfile>
+    <springProfile name="!development">
+        <root level="WARN" additivity="false">
+            <appender-ref ref="errorLog" />
+        </root>
+        <logger name="jp.co.nsw" level="INFO" additivity="false">
+            <appender-ref ref="applicationLog" />
+        </logger>
+    </springProfile>
+
+</configuration>
