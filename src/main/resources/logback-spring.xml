@@ -36,7 +36,7 @@
         <root level="INFO" additivity="false">
             <appender-ref ref="CONSOLE"/>
         </root>
-        <logger name="jp.co.nsw" level="DEBUG" additivity="false">
+        <logger name="jp.co.xxxyyyzzz" level="DEBUG" additivity="false">
             <appender-ref ref="CONSOLE" />
         </logger>
     </springProfile>
@@ -44,7 +44,7 @@
         <root level="WARN" additivity="false">
             <appender-ref ref="errorLog" />
         </root>
-        <logger name="jp.co.nsw" level="INFO" additivity="false">
+        <logger name="jp.co.xxxyyyzzz" level="INFO" additivity="false">
             <appender-ref ref="applicationLog" />
         </logger>
     </springProfile>
